@@ -6,12 +6,24 @@ describe('Inputs', () => {
     it('should calculate with valid values at the inputs', async () => {
         await ParkcalcPage.open();
 
-        await ParkcalcPage.loadValues();
-        //  ParkcalcPage.btnCalculate.click;
-        // ParkcalcPage.btnCalculate.click;
+        // await ParkcalcPage.loadValues();
+        const validParams = {
+            parkingLot: 'Short-Term Parking',
+            startingDate: '01/14/2021',
+            leavingDate: '01/14/2021',
+            startingTime: '07:00',
+            leavingTime: '11:00',
+            startingAm: false,
+            startingPm: true,
+            leavingAm: false,
+            leavingPm: true,
+            isClicked: false
+        };
+        await ParkcalcPage.loadPage(validParams);
+        
+        await (await ParkcalcPage.btnCalculate).click();
 
-        const estimatedParkingCosts = $('b');
-        await expect(estimatedParkingCosts).toHaveTextContaining('$ 8.00');
+        await expect(ParkcalcPage.estimatedParkingCosts).toHaveTextContaining('$ 8.00');
         
     });
     it('should change to valid values for the inputs', async () => {

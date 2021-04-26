@@ -23,7 +23,8 @@ class Parkcalc extends Page {
     get inputLeavingPm () { return $('input[name="LeavingTimeAMPM"][value="PM"]') }
 
     get btnCalculate () { return $('input[type="submit"]') }
-    get estimatedParkingCosts () { return $$('.SubHead b') }
+    get estimatedParkingCosts () { return $$('.SubHead b') }    
+    // Using the class, instead of the tag input, because at the response moment, it changes
 
     /**
      * a method to encapsule automation code to interact with the page
@@ -54,8 +55,8 @@ class Parkcalc extends Page {
         if(leavingPm)
             await (await this.inputLeavingPm).click();
 
-        if(isClicked)
-            await (await this.btnCalculate).click();
+        // if(isClicked)
+        //     await (await this.btnCalculate).click();
 
         
         // await (await this.inputStartingAm).setValue(startingAm);
