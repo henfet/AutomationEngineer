@@ -18,9 +18,12 @@ class Parkcalc extends Page {
 
     get inputStartingAm () { return $('input[name="StartingTimeAMPM"][value="AM"]') }
     get inputStartingPm () { return $('input[name="StartingTimeAMPM"][value="PM"]') }
+    get inputStartingChecked () { return $('input[name="StartingTimeAMPM]') }
 
     get inputLeavingAm () { return $('input[name="LeavingTimeAMPM"][value="AM"]') }
     get inputLeavingPm () { return $('input[name="LeavingTimeAMPM"][value="PM"]') }
+    
+
 
     get btnCalculate () { return $('input[type="submit"]') }
     get estimatedParkingCosts () { return $$('.SubHead b') }    
@@ -30,6 +33,9 @@ class Parkcalc extends Page {
      * a method to encapsule automation code to interact with the page
      * e.g. to login using username and password
      */
+
+    inputLeavingPmChecked () { return inputLeavingPm.isSelected() }
+    
     async loadPage (
         {   parkingLot,
             startingDate,
@@ -43,20 +49,31 @@ class Parkcalc extends Page {
             isClicked 
         }
         ) {
-        await (await this.inputParkingLot).selectByVisibleText(parkingLot);
-        await (await this.inputStartingDate).setValue(startingDate);
-        await (await this.inputLeavingDate).setValue(leavingDate);
-        await (await this.inputStartingTime).setValue(startingTime);
-        await (await this.inputLeavingTime).setValue(leavingTime);
+        if(parkingLot)
+            await (await this.inputParkingLot).selectByVisibleText(parkingLot);
+        if(startingDate)
+            await (await this.inputStartingDate).setValue(startingDate);
+        if(leavingDate)
+            await (await this.inputLeavingDate).setValue(leavingDate);
+        if(startingTime)
+            await (await this.inputStartingTime).setValue(startingTime);
+        if(leavingTime)
+            await (await this.inputLeavingTime).setValue(leavingTime);
+
+        if(startingAm)
+            await (await this.inputStartingAm).click();
 
         if(startingPm)
             await (await this.inputStartingPm).click();
 
+        if(leavingAm)
+            await (await this.inputLeavingAm).click();
+        
         if(leavingPm)
             await (await this.inputLeavingPm).click();
 
-        // if(isClicked)
-        //     await (await this.btnCalculate).click();
+        if(isClicked)
+            await (await this.btnCalculate).click();
 
         
         // await (await this.inputStartingAm).setValue(startingAm);
